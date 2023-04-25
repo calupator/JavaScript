@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DZ-10</title>
+	<script src="script/data.js"></script>
+</head>
+
+<body>
+	<!-- Задание 2
+	1. Создать файл index.html.
+	2. Подключить data.js.
+	3. Сформировать контент из данных (картинка загловок и параграф).
+	4. Добавить данный контент в вёрстку.
+	5. * Добавить стили при необходимости (по желанию). -->
+
+	<script>
+		const content = document.createElement('div');
+		content.classList.add('content');
+		const data = JSON.parse(photos);
+		console.log(data);
+
+		// content.style.display = 'grid';
+		content.style.display = 'flex';
+		content.style.gap = '10px';
+		// content.style.gridTemplateColumns= 'repeat(3, 1fr)';
+		content.style.textAlign = 'center';
+		content.style.justifyContent = 'center';
+		content.style.flexWrap = 'wrap';
+		content.style.fontFamily = 'sans-serif';
+
+		data.forEach(({ date, title, explanation, copyright, url }) => {
+			const divItem = document.createElement('div');
+			divItem.classList.add('item');
+			divItem.style.maxWidth = '500px';
+			divItem.style.border = '1px solid blue';
+			divItem.style.borderRadius = '10px';
+			const imgItem = document.createElement('img');
+			imgItem.classList.add('item-img');
+			imgItem.alt = 'image';
+			imgItem.height = 300;
+			imgItem.src = url;
+
+			const itemText = document.createElement('div');
+			itemText.classList.add('item-text');
+			itemText.style.padding = '10px';
+
+			const titleEl = document.createElement('h1');
+			titleEl.classList.add('item-text-title');
+			titleEl.textContent = title;
+			titleEl.style.color = 'brown';
+			titleEl.style.fontSize = '26px';
+
+			const subtitleEl = document.createElement('p');
+			subtitleEl.classList.add('item-text-subtitle');
+			subtitleEl.textContent = explanation;
+			subtitleEl.style.textAlign = 'left';
+
+			const itemDate = document.createElement('p');
+			itemDate.classList.add('item-text-date');
+			itemDate.textContent = `Date: ${date}`;
+			itemDate.style.textAlign = 'left';
+			itemDate.style.fontSize = '12px';
+
+			const itemCopyright = document.createElement('p');
+			itemCopyright.classList.add('item-text-copyright');
+			itemCopyright.textContent = 'Copyright by: ' + (copyright ? copyright : 'none');
+			itemCopyright.style.textAlign = 'left';
+			itemCopyright.style.fontSize = '10px';
+
+			itemText.appendChild(titleEl);
+			itemText.appendChild(subtitleEl);
+			itemText.appendChild(itemDate);
+			itemText.appendChild(itemCopyright);
+
+			divItem.appendChild(imgItem);
+			divItem.appendChild(itemText);
+
+			content.appendChild(divItem);
+		});
+		document.querySelector('body').appendChild(content);
+
+	</script>
+</body>
+
+</html>
